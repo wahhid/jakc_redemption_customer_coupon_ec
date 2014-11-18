@@ -41,6 +41,7 @@
             </field>
         </record>
         
+        
 		<!-- RDM/SEQUENCE -->
         <!-- COUPON ID -->       
         <record id="sequence_type_rdm_customer_coupon" model="ir.sequence.type">
@@ -54,7 +55,8 @@
             <field name="padding" eval="10"/>
             <field name="number_increment">1</field>            
         </record>        
-		                
+
+                		                
         <!-- RDM/ACTION -->
         <!-- CUSTOMER -->
 		<record model="ir.actions.act_window" id="action_rdm_customer_coupon">
