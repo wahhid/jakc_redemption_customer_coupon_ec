@@ -16,7 +16,7 @@
                             <tree string="Coupons">                                                                                                
                                 <field name="trans_type"/>                                
 								<field name="coupon"/>                                	
-                                <field name="expired_date"/>                                                                                                                                                                                                                                      
+                                <field name="expired_date"/>                                                                                                                                                                                                                                                                     
                             </tree>                    
                         </field>
                     </page>
