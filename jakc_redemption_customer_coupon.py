@@ -17,10 +17,24 @@ class rdm_customer_coupon(osv.osv):
         cr.execute(sql_req)
         return True    
     
+    def add_coupon(self, cr, uid, values, context=None):
+        trans_data = {}
+        trans_data.update({'customer_id': values.get('customer_id')})
+        trans_data.update({'trans_id': values.get('trans_id')})
+        trans_data.update({'trans_type': values.get('trans_type')})
+        trans_data.update({'coupon': values.get('coupon')})
+        trans_data.update({'customer_id': values.get('customer_id')})
+        trans_data.update({'expired_date': values.get('expired_date')})
+        trans_id = self.create(cr, uid, trans_data, context=context)
+        expired_date = values.get('expired_date')
+        for i in range (0,values.get('coupon')):
+            self.pool.get('rdm.customer.coupon.detail').add_coupon_detail(cr, uid, trans_id, expired_date, context=context)
+            
+            
     _columns = {
         'customer_id': fields.many2one('rdm.customer','Customer', required=True),
         'trans_id': fields.integer('Transaction ID', readonly=True),        
-        'trans_type': fields.selection([('promo','Promotion'),('point','Point'),('reference','Reference'),('member','New Member')], 'Transaction Type'),        
+        'trans_type': fields.selection([('promo','Promotion'),('point','Point'),('reward','Reward'),('reference','Reference'),('member','New Member')], 'Transaction Type'),        
         'coupon': fields.integer('Coupon #', required=True),        
         'expired_date': fields.date('Expired Date', required=True),
         'customer_coupon_detail_ids': fields.one2many('rdm.customer.coupon.detail','customer_coupon_id','Coupon Codes'),
@@ -37,6 +51,15 @@ rdm_customer_coupon()
 class rdm_customer_coupon_detail(osv.osv):
     _name = 'rdm.customer.coupon.detail'
     _description = 'Redemption Customer Coupon Detail'
+    
+    def add_coupon_detail(self, cr, uid, trans_id, expired_date, context=None):
+        trans_data = {}
+        trans_data.update({'customer_coupon_id': trans_id})
+        coupon_code = self.pool.get('ir.sequence').get(cr, uid, 'rdm.customer.coupon.sequence')
+        trans_data.update({'coupon_code': coupon_code})
+        trans_data.update({'expired_date': expired_date})
+        self.create(cr, uid, trans_data, context=context)
+        
     _columns = {
         'customer_coupon_id': fields.many2one('rdm.customer.coupon','Customer Coupon'),
         'coupon_code': fields.char('Coupon Code', size=10, required=True),
