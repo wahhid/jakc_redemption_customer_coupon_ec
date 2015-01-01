@@ -12,11 +12,12 @@
 				</field>            	
                 <notebook position="inside">
                     <page string="Coupons">                    	
-                        <field name="customer_coupon_ids" widget="one2many_list" nolabel="1">
+                        <field name="customer_coupon_ids" widget="one2many_list" nolabel="1" domain="[('state','=','active'])]">
                             <tree string="Coupons">                                                                                                
                                 <field name="trans_type"/>                                
 								<field name="coupon"/>                                	
-                                <field name="expired_date"/>                                                                                                                                                                                                                                                                     
+                                <field name="expired_date"/>
+                                <field name="state"/>                                                                                                                                                                                                                                                                     
                             </tree>                    
                         </field>
                     </page>

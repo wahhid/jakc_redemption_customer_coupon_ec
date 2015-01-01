@@ -1,4 +1,8 @@
 from openerp.osv import fields, osv
+from datetime import datetime
+import logging
+
+_logger = logging.getLogger(__name__)
 
 AVAILABLE_STATES = [
     ('draft','New'),
@@ -12,9 +16,12 @@ class rdm_customer_coupon(osv.osv):
     _name = 'rdm.customer.coupon'
     _description = 'Redemption Customer Coupon'
     
-    def batch_expired_date(self, cr, uid, context=None):
-        sql_req = "UPDATE rdm.customer.coupon SET state='expired' WHERE expired_date=now()"
+    def process_expired(self, cr, uid, context=None):
+        _logger.info('Start Customer Coupon Process Expired')
+        now = datetime.now().strftime('%Y-%m-%d')
+        sql_req = "UPDATE rdm_customer_coupon SET state='expired' WHERE expired_date < '" + now + "' AND state='active'" 
         cr.execute(sql_req)
+        _logger.info('End Customer Coupon Process Expired')
         return True    
     
     def add_coupon(self, cr, uid, values, context=None):
