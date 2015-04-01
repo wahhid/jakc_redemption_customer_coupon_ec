@@ -8,8 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Customer Coupon">
                     <group colspan="4">                            
-                        <field name="customer_id"/>
-                        <field name="trans_id"/>                        
+                        <field name="customer_id"/>                                            
                         <field name="trans_type"/>          
                         <field name="coupon"/>	                                          
                     </group>
@@ -33,8 +32,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Customer Coupon">
-                	<field name="customer_id"/>
-                    <field name="trans_id"/>                        
+                	<field name="customer_id"/>                                    
                     <field name="trans_type"/>        
                     <field name="coupon"/>	                                        
                 </tree>
@@ -43,7 +41,7 @@
         
         
 		<!-- RDM/SEQUENCE -->
-        <!-- COUPON ID -->       
+        <!-- COUPON CODE -->       
         <record id="sequence_type_rdm_customer_coupon" model="ir.sequence.type">
             <field name="name">Customer Coupon</field>
             <field name="code">rdm.customer.coupon.sequence</field>
@@ -55,10 +53,9 @@
             <field name="padding" eval="10"/>
             <field name="number_increment">1</field>            
         </record>        
-
                 		                
         <!-- RDM/ACTION -->
-        <!-- CUSTOMER -->
+        <!-- CUSTOMER COUPON -->
 		<record model="ir.actions.act_window" id="action_rdm_customer_coupon">
             <field name="name">Customer Coupon</field>
             <field name="res_model">rdm.customer.coupon</field>
